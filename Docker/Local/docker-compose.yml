@@ -1,17 +1,34 @@
 version: '3.7'
 services:
+
+  mongo:
+    image: mongo:4.4.1
+    container_name: witsml-explorer-mongo-db
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db #Location for data folder can be changed.
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+
   api:
+    depends_on:
+      - mongo
     image: witsmlexplorer-api:latest
     container_name: witsmlexplorer-api-dev
     ports:
       - 5000:5000
     volumes:
-      - ./config.json:/app/config.json:ro
+      - ./localconfig.json:/app/config.json:ro
       - ./ca-bundle.crt:/etc/ssl/certs/ca-bundle.crt:ro
     environment:
       - SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt      
 
   web:
+    depends_on: 
+      - api
     image: witsmlexplorer-frontend:latest
     container_name: witsmlexplorer-frontend-dev
     ports:

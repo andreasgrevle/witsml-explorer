@@ -1,0 +1,8 @@
+{
+    "MongoDb": {
+      "Name": "witsml-explorer-mongo-db",
+      "ConnectionString": "mongodb://user:pass@host.docker.internal"
+    },
+    "AllowedOrigin": "http://localhost:3000",
+    "OAuth2Enabled": false
+  }

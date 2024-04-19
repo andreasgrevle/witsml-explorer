@@ -44,6 +44,7 @@ package-lock.json
 *.user
 *.userosscache
 *.sln.docstates
+Docker/Local/data
 
 # Build results
 [Dd]ebug/
